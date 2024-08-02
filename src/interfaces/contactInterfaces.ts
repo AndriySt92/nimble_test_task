@@ -28,6 +28,12 @@ interface Privacy {
 }
 
 export interface IContactFormData {
+  email: string
+  firstName: string
+  lastName: string
+}
+
+export interface IContactRequestData {
   fields: Fields;
   record_type: 'person'; 
   privacy: Privacy;

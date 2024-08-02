@@ -1,0 +1,7 @@
+export { default as Button } from './Button'
+export { default as Error } from './Error'
+export { default as Loader } from './Loader'
+export { default as ContactForm } from './ContactForm'
+export { default as ContactItem } from './ContactItem'
+export { default as ContactsList } from './ContactsList'
+export { default as UserInfo } from './UserInfo'
