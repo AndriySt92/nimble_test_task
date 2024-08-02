@@ -2,8 +2,8 @@
   "name": "vite-template-redux",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "proxy": "https://live.devnimble.com",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "start": "vite",
