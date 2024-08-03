@@ -53,7 +53,7 @@ export const contactApi = createApi({
       query: id => ({
         url: `contact/${id}`,
       }),
-      providesTags: (result, error, id) => [{ type: 'Contact', id }],
+      providesTags: (result, error, id) => [{ type: "Contact", id }],
       transformResponse: (response: any) => response.resources[0],
     }),
 

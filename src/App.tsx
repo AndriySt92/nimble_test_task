@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { ContactDetails, Home } from "./pages"
-import { useAddContactMutation } from "./redux/contactApi"
 import { ToastContainer } from "react-toastify"
 
 export default function App() {

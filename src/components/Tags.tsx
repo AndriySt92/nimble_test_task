@@ -1,17 +1,23 @@
 import React from "react"
-import { Title } from "../components"
-import TagsList from "./TagsList"
+import classNames from "classnames"
+import { Title, TagsList } from "../components"
 import { ITags } from "../interfaces/contactInterfaces"
 
 interface Props {
   tags: ITags[]
+  withTitle?: boolean
+  className?: string
 }
 
-const Tags = ({ tags }: Props) => {
+const Tags = ({ tags, withTitle = false, className = "" }: Props) => {
+  const allClasses = classNames("flex flex-wrap gap-2", className)
+
   return (
     <div>
-      <Title variant="small">Tags</Title>
-      <TagsList tags={tags} />
+      {withTitle && <Title variant="small">Tags</Title>}
+      <div className={allClasses}>
+        <TagsList tags={tags} />
+      </div>
     </div>
   )
 }

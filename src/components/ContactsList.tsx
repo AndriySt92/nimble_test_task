@@ -1,27 +1,18 @@
 import React from "react"
-import { useGetContactsQuery } from "../redux/contactApi"
-import { Loader, Error, ContactItem } from "../components"
+import { ContactItem } from "../components"
+import { IContact } from "../interfaces/contactInterfaces"
 
-const ContactsList = () => {
-  const { data, isLoading, error, isError } = useGetContactsQuery()
+interface Props {
+  contacts: IContact[]
+}
 
-  if (isLoading) {
-    return <Loader />
-  }
-
-  if (isError) {
-    return <Error className={"text-2xl text-center"} text={error as string} />
-  }
-
+const ContactsList = ({ contacts }: Props) => {
   return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-5 text-start">Create contact</h1>
-      <div className="flex flex-col gap-5">
-        {data?.map(contact => (
-          <ContactItem key={contact.id} contact={contact} />
-        ))}
-      </div>
-    </div>
+    <>
+      {contacts.map(contact => (
+        <ContactItem key={contact.id} contact={contact} />
+      ))}
+    </>
   )
 }
 

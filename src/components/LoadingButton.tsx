@@ -1,15 +1,12 @@
 import React from "react"
-import {Button} from "../components"
+import { Button } from "../components"
 
 interface Props {
-    children: React.ReactNode
-    className?: string
-  }
+  children: React.ReactNode
+  className?: string
+}
 
-  const LoadingButton = ({
-    children,
-    className,
-  }: Props) => {
+const LoadingButton = ({ children, className }: Props) => {
   return (
     <Button disabled className={className}>
       <svg
