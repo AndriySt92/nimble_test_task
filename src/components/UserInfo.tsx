@@ -14,8 +14,8 @@ const UserInfo = ({
   avatar = "",
 }: Props) => {
   return (
-    <div className="flex items-center gap-3">
-      <img alt="avatar" src={avatar} className="h-16 w-16 rounded-full" />
+    <div className="flex items-center gap-3"> 
+      <img alt="avatar" src={avatar} className="h-16 w-16 rounded-full border-2 border-white" />
       <div className="flex flex-col justify-center">
         <div className="text-md font-semibold">
           <span>{firstName}</span> <span>{lastName}</span>

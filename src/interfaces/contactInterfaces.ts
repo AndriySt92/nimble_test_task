@@ -10,9 +10,14 @@ interface Fields {
   email: FieldValue[];
 }
 
-interface ITags {
+export interface ITags {
   id: string
   tag: string
+}
+
+export interface ICreateTagsRequestData {
+  id: string
+  body: { tags: string[] }
 }
 
 export interface IContact {

@@ -2,6 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import {
   IContact,
   IContactRequestData,
+  ICreateTagsRequestData,
 } from "../interfaces/contactInterfaces"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -9,7 +10,7 @@ const AUTH_TOKEN = import.meta.env.VITE_AUTH_TOKEN
 
 export const contactApi = createApi({
   reducerPath: "contact",
-  tagTypes: ["Contacts"],
+  tagTypes: ["Contacts", "Contact"],
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: headers => {
@@ -35,7 +36,7 @@ export const contactApi = createApi({
         url: "contacts",
         method: "GET",
         params: {
-          sort: 'created:desc',
+          sort: "created:desc",
         },
       }),
       transformResponse: (response: any) => response.resources,
@@ -50,8 +51,9 @@ export const contactApi = createApi({
 
     getContact: builder.query<IContact, string>({
       query: id => ({
-        url: `contacts/${id}`,
+        url: `contact/${id}`,
       }),
+      providesTags: (result, error, id) => [{ type: 'Contact', id }],
       transformResponse: (response: any) => response.resources[0],
     }),
 
@@ -63,13 +65,13 @@ export const contactApi = createApi({
       invalidatesTags: [{ type: "Contacts", id: "LIST" }],
     }),
 
-    addTag: builder.mutation<void, { id: string; tags: string[] }>({
-      query: ({ id, tags }) => ({
+    addTags: builder.mutation<void, ICreateTagsRequestData>({
+      query: ({ id, body }) => ({
         url: `contacts/${id}/tags`,
         method: "PUT",
-        body: tags,
-        invalidatesTags: [{ type: "Contacts", id: "LIST" }],
+        body,
       }),
+      invalidatesTags: (result, error, { id }) => [{ type: "Contact", id }],
     }),
   }),
 })
@@ -79,5 +81,5 @@ export const {
   useGetContactsQuery,
   useGetContactQuery,
   useDeleteContactMutation,
-  useAddTagMutation,
+  useAddTagsMutation,
 } = contactApi
