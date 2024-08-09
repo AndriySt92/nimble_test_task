@@ -1,7 +1,6 @@
-import React from "react"
 import classNames from "classnames"
 import { Title, TagsList } from "../components"
-import { ITags } from "../interfaces/contactInterfaces"
+import type { ITags } from "../interfaces/contactInterfaces"
 
 interface Props {
   tags: ITags[]

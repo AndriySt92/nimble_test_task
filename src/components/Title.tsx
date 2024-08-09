@@ -1,4 +1,4 @@
-import React from "react"
+import type React from "react"
 import classNames from "classnames"
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const Title = ({ children, className, variant = "large" }: Props) => {
-  let variantClass = variant === "large" ? "text-2xl" : "text-xl"
+  const variantClass = variant === "large" ? "text-2xl" : "text-xl"
   const allClasses = classNames(
     "font-semibold mb-5 text-start",
     variantClass,

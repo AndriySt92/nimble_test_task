@@ -1,5 +1,4 @@
-import React from "react"
-import { ITags } from "../interfaces/contactInterfaces"
+import type { ITags } from "../interfaces/contactInterfaces"
 import TagsItem from "./TagsItem"
 
 interface Props {

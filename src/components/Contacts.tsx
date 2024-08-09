@@ -1,7 +1,6 @@
-import React from "react"
 import { useGetContactsQuery } from "../redux/contactApi"
 import { Loader, Error, ContactsList } from "../components"
-import { IContact } from "../interfaces/contactInterfaces"
+import type { IContact } from "../interfaces/contactInterfaces"
 
 const Contacts = () => {
   const { data: contacts, isLoading, isError } = useGetContactsQuery()

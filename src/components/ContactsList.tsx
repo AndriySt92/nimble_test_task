@@ -1,6 +1,5 @@
-import React from "react"
 import { ContactItem } from "../components"
-import { IContact } from "../interfaces/contactInterfaces"
+import type { IContact } from "../interfaces/contactInterfaces"
 
 interface Props {
   contacts: IContact[]

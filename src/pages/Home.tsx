@@ -1,4 +1,3 @@
-import React from 'react'
 import { ContactForm, Contacts } from '../components'
 
 const Home = () => {

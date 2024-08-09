@@ -1,4 +1,3 @@
-import React from "react"
 import { useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { useForm } from "react-hook-form"
@@ -13,15 +12,20 @@ import {
   Tags,
   LoadingButton,
 } from "../components"
-import { ICreateTagsRequestData } from "../interfaces/contactInterfaces"
+import type { IApiError, ICreateTagsRequestData } from "../interfaces/contactInterfaces"
 
 const ContactDetails = () => {
   const { id } = useParams<{ id: string }>()
+
+  if (!id) {
+    return <Error text="Contact ID is missing." />;
+  }
+  
   const {
     data: contact,
     error,
     isLoading: isFetching,
-  } = useGetContactQuery(id!)
+  } = useGetContactQuery(id)
   const [addTags, isLoading] = useAddTagsMutation()
 
   const {
@@ -45,10 +49,10 @@ const ContactDetails = () => {
       .map(tag => tag.trim())
 
     const requestData: ICreateTagsRequestData = {
-      id: contact?.id as string,
+      id: contact?.id ?? '',
       body: {
         tags: Array.from(
-          new Set([...contact!.tags.map(tag => tag.tag), ...tags]),
+          new Set([...contact?.tags.map(tag => tag.tag) ?? [], ...tags]),
         ),
       },
     }
@@ -57,9 +61,14 @@ const ContactDetails = () => {
       await addTags(requestData).unwrap()
       reset()
       toast.success("Tags added successfully")
-    } catch (error: any) {
-      const message = error.data.message || "Something went wrong"
-      toast.error(message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const message =
+          (error as IApiError)?.data?.message || "Something went wrong"
+        toast.error(message)
+      } else {
+        toast.error("An unexpected error occurred")
+      }
     }
   })
 

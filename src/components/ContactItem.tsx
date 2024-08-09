@@ -1,8 +1,7 @@
-import React from "react"
 import { TiDeleteOutline } from "react-icons/ti"
 import { Link } from "react-router-dom"
 import { toast } from "react-toastify"
-import { IContact } from "../interfaces/contactInterfaces"
+import type { IApiError, IContact } from "../interfaces/contactInterfaces"
 import { useDeleteContactMutation } from "../redux/contactApi"
 import { Avatar, UserInfo, Tags } from "../components"
 
@@ -17,9 +16,14 @@ const ContactItem = ({ contact }: Props) => {
     try {
       await deleteContact(contact.id).unwrap()
       toast("Deleted successfully")
-    } catch (error: any) {
-      const message = error.data.message || "Something went wrong"
-      toast.error(message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const message =
+          (error as IApiError)?.data?.message || "Something went wrong"
+        toast.error(message)
+      } else {
+        toast.error("An unexpected error occurred")
+      }
     }
   }
 

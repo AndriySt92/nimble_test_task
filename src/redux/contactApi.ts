@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import {
+import type {
   IContact,
   IContactRequestData,
   ICreateTagsRequestData,
+  IGetContactResponse,
+  IGetContactsResponse,
 } from "../interfaces/contactInterfaces"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -39,7 +41,7 @@ export const contactApi = createApi({
           sort: "created:desc",
         },
       }),
-      transformResponse: (response: any) => response.resources,
+      transformResponse: (response: IGetContactsResponse) => response.resources,
       providesTags: result =>
         result
           ? [
@@ -54,7 +56,8 @@ export const contactApi = createApi({
         url: `contact/${id}`,
       }),
       providesTags: (result, error, id) => [{ type: "Contact", id }],
-      transformResponse: (response: any) => response.resources[0],
+      transformResponse: (response: IGetContactResponse) =>
+        response.resources[0],
     }),
 
     deleteContact: builder.mutation<void, string>({

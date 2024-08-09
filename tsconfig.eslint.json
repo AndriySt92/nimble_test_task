@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig.json",
+    "exclude": [
+      "node_modules",
+      "build",
+      "postcss.config.js",
+      "tailwind.config.js",
+      "vite.config.ts"
+    ]
+  }

@@ -1,4 +1,4 @@
-import React from "react"
+import type React from "react"
 import classNames from "classnames"
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 const Button = ({
   children,
   className,
-  onClick = () => {},
+  onClick,
   ...rest
 }: Props) => {
   const allClasses = classNames(

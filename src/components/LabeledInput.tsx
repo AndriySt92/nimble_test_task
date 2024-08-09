@@ -1,8 +1,6 @@
-import React from "react"
 import classNames from "classnames"
-import { UseFormRegister, RegisterOptions } from "react-hook-form"
+import type { UseFormRegister, RegisterOptions } from "react-hook-form"
 import { Error } from "../components"
-
 
 interface Props {
   name: string

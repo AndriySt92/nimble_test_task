@@ -1,9 +1,11 @@
-import React from "react"
 import Button from "./Button"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
-import { IContactFormData } from "../interfaces/contactInterfaces"
-import {LoadingButton, LabeledInput, Title} from "../components"
+import type {
+  IApiError,
+  IContactFormData,
+} from "../interfaces/contactInterfaces"
+import { LoadingButton, LabeledInput, Title } from "../components"
 import { useAddContactMutation } from "../redux/contactApi"
 
 const ContactForm = () => {
@@ -64,9 +66,14 @@ const ContactForm = () => {
 
       reset()
       toast.success("Contact created successfully")
-    } catch (error: any) {
-      const message = error.data.message || "Something went wrong"
-      toast.error(message)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        const message =
+          (error as IApiError)?.data?.message || "Something went wrong"
+        toast.error(message)
+      } else {
+        toast.error("An unexpected error occurred")
+      }
     }
   })
 
@@ -129,7 +136,9 @@ const ContactForm = () => {
         />
 
         {!isLoading ? (
-          <Button disabled={isLoading} type="submit">Add contact</Button>
+          <Button disabled={isLoading} type="submit">
+            Add contact
+          </Button>
         ) : (
           <LoadingButton>Loading...</LoadingButton>
         )}
