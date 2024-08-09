@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ContactItem = ({ contact }: Props) => {
-  const [deleteContact] = useDeleteContactMutation()
+  const [deleteContact, { isLoading }] = useDeleteContactMutation()
 
   const handleDelete = async () => {
     try {
@@ -45,7 +45,7 @@ const ContactItem = ({ contact }: Props) => {
         <Tags tags={contact.tags} className="ml-[78px]" />
       </Link>
       <TiDeleteOutline
-        onClick={handleDelete}
+        onClick={!isLoading ? handleDelete : undefined}
         className="absolute right-3 top-3 h-6 w-6 cursor-pointer"
       />
     </div>

@@ -1,9 +1,14 @@
 import { useGetContactsQuery } from "../redux/contactApi"
 import { Loader, Error, ContactsList } from "../components"
-import type { IContact } from "../interfaces/contactInterfaces"
 
 const Contacts = () => {
-  const { data: contacts, isLoading, isError } = useGetContactsQuery()
+  const { contacts, isLoading, isError } = useGetContactsQuery(undefined, {
+    selectFromResult: ({ data, isLoading, isError }) => ({
+      contacts: data ?? [],
+      isLoading,
+      isError,
+    }),
+  })
 
   if (isLoading) {
     return <Loader />
@@ -22,7 +27,11 @@ const Contacts = () => {
     <div>
       <h1 className="text-2xl font-semibold mb-5 text-start">Create contact</h1>
       <div className="flex flex-col gap-5">
-        <ContactsList contacts={contacts as IContact[]} />
+        {contacts.length > 0 ? (
+          <ContactsList contacts={contacts} />
+        ) : (
+          <p className="text-center text-2xl">No contacts available.</p>
+        )}
       </div>
     </div>
   )

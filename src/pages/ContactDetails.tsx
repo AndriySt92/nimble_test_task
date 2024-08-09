@@ -12,20 +12,19 @@ import {
   Tags,
   LoadingButton,
 } from "../components"
-import type { IApiError, ICreateTagsRequestData } from "../interfaces/contactInterfaces"
+import type {
+  IApiError,
+  ICreateTagsRequestData,
+} from "../interfaces/contactInterfaces"
 
 const ContactDetails = () => {
   const { id } = useParams<{ id: string }>()
 
   if (!id) {
-    return <Error text="Contact ID is missing." />;
+    return <Error text="Contact ID is missing." />
   }
-  
-  const {
-    data: contact,
-    error,
-    isLoading: isFetching,
-  } = useGetContactQuery(id)
+
+  const { data: contact, error, isLoading: isFetching } = useGetContactQuery(id)
   const [addTags, isLoading] = useAddTagsMutation()
 
   const {
@@ -45,14 +44,16 @@ const ContactDetails = () => {
     const tags = data.tags
       .replace(/,/g, " ") // replaces all commas in the string with spaces.
       .split(/\s+/) // splits the string by one or more whitespace characters.
-      .filter(tag => tag !== '') // filter out empty strings
+      .filter(tag => tag !== "") // filter out empty strings
       .map(tag => tag.trim())
 
+    if (!contact) return
+
     const requestData: ICreateTagsRequestData = {
-      id: contact?.id ?? '',
+      id: contact.id,
       body: {
         tags: Array.from(
-          new Set([...contact?.tags.map(tag => tag.tag) ?? [], ...tags]),
+          new Set([...(contact.tags.map(tag => tag.tag) ?? []), ...tags]),
         ),
       },
     }
@@ -96,8 +97,8 @@ const ContactDetails = () => {
               variant="large"
             />
             <UserInfo
-              firstName={contact.fields?.["first name"]?.[0]?.value}
-              lastName={contact.fields?.["last name"]?.[0]?.value}
+              firstName={contact?.fields?.["first name"]?.[0]?.value}
+              lastName={contact?.fields?.["last name"]?.[0]?.value}
               email={contact.fields?.email?.[0]?.value}
             />
           </div>
