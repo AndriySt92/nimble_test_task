@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 import type {
   IApiError,
   IContactFormData,
+  IFields,
 } from "../interfaces/contactInterfaces"
 import { LoadingButton, LabeledInput, Title } from "../components"
 import { useAddContactMutation } from "../redux/contactApi"
@@ -48,21 +49,23 @@ const ContactForm = () => {
 
     if (!isNameValid) return
 
+    const fields: IFields = { email: [{ value: data.email, modifier: "", label: "email" }],} ;
+
+    if (data.firstName) {
+      fields["first name"] = [{ value: data.firstName, modifier: "", label: "first name" }];
+    }
+  
+    if (data.lastName) {
+      fields["last name"] = [{ value: data.lastName, modifier: "", label: "last name" }];
+    }
+
     try {
       await addContact({
-        fields: {
-          "first name": [
-            { value: data.firstName, modifier: "", label: "first name" },
-          ],
-          "last name": [
-            { value: data.lastName, modifier: "", label: "last name" },
-          ],
-          email: [{ value: data.email, modifier: "", label: "email" }],
-        },
+        fields,
         record_type: "person",
         privacy: { edit: null, read: null },
         owner_id: null,
-      }).unwrap()
+      }).unwrap();
 
       reset()
       toast.success("Contact created successfully")

@@ -1,13 +1,13 @@
-interface FieldValue {
+interface IFieldValue {
   label: string
   modifier: string
   value: string
 }
 
-interface Fields {
-  "first name": FieldValue[]
-  "last name": FieldValue[]
-  email: FieldValue[]
+export interface IFields {
+  "first name"?: IFieldValue[]
+  "last name"?: IFieldValue[]
+  email: IFieldValue[]
 }
 
 export interface ITags {
@@ -23,7 +23,7 @@ export interface ICreateTagsRequestData {
 export interface IContact {
   id: string
   avatar_url: string
-  fields: Fields
+  fields: IFields
   tags: ITags[]
 }
 
@@ -39,7 +39,7 @@ export interface IContactFormData {
 }
 
 export interface IContactRequestData {
-  fields: Fields
+  fields: IFields
   record_type: "person"
   privacy: Privacy
   owner_id: null | string
