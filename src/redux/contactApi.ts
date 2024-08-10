@@ -74,7 +74,10 @@ export const contactApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: (result, error, { id }) => [{ type: "Contact", id }],
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Contact", id },
+        { type: "Contacts", id: "LIST" },
+      ],
     }),
   }),
 })

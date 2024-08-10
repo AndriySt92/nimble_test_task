@@ -113,7 +113,6 @@ const ContactDetails = () => {
               error={errors?.tags?.message as string}
               register={register}
               validation={{
-                required: "Tags is required.",
                 minLength: {
                   value: 2,
                   message: "Tags must be at least 2 characters",
